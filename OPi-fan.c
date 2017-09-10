@@ -19,8 +19,8 @@
 #define SOCK_FILE   ((const char *)"/run/OPi-fan.sock")
 
 
-#define PIN_PWM       6      //PIN 6, PA06, Physical OPi-pin 7
-#define PIN_RPM       0      //PIN 7, PA7, Physical OPi-pin 29
+#define PIN_PWM       6      //in WiringPi notation - wPi Pin - disabled when set to 0
+#define PIN_RPM       0      //in WiringPi notation - wPi Pin - disabled when set to 0
 #define HALL_PULSE    2      //Number of pulses per one rotation FAN
 #define TEMP_MIN      35     //Minimal CPU temperature
 #define TEMP_MAX      60     //Maximum CPU temperature
