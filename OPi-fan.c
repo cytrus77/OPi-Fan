@@ -20,12 +20,12 @@
 
 
 #define PIN_PWM       6      //PIN 6, PA06, Physical OPi-pin 7
-#define PIN_RPM       7      //PIN 7, PA7, Physical OPi-pin 29
+#define PIN_RPM       0      //PIN 7, PA7, Physical OPi-pin 29
 #define HALL_PULSE    2      //Number of pulses per one rotation FAN
 #define TEMP_MIN      35     //Minimal CPU temperature
 #define TEMP_MAX      60     //Maximum CPU temperature
 #define POWER_MIN     5      //Minimal power percent for FAN
-#define TIME_SLEEP    3      //Reaction time of the program
+#define TIME_SLEEP    3      //Reaction time of the program [sec]
 
 
 int currentTemp = 0 ;
@@ -151,8 +151,8 @@ void fanCotrolDaemon(void) {
     signal_init();
     setPidFile();
     pthread_create(&readerTemp, nil, (void *(*)(void *)) readTemp, nil);
-    pthread_create(&pwmFaner, nil, (void *(*)(void *)) pwmFan, nil);
-    pthread_create(&rpmFaner, nil, (void *(*)(void *)) rpmFan, nil);
+    if(PIN_PWM) pthread_create(&pwmFaner, nil, (void *(*)(void *)) pwmFan, nil);
+    if(PIN_RPM) pthread_create(&rpmFaner, nil, (void *(*)(void *)) rpmFan, nil);
     pthread_create(&daemonMessager, nil, (void *(*)(void *)) daemonMessage, nil);
     while (1) {
         if (currentTemp > TEMP_MAX){
